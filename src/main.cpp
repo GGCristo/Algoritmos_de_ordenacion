@@ -10,6 +10,9 @@ int Estadistica();
 template<class Clave>
 void Insercion(std::vector<Clave>&, size_t);
 
+template<class Clave>
+void Burbuja(std::vector<Clave>&, size_t);
+
 int main()
 {
   srand(time(NULL));
@@ -39,7 +42,7 @@ int Demostracion()
   }
 
   std::cout << '\n';
-  Insercion(contenedor, contenedor.size());
+  Burbuja(contenedor, contenedor.size());
 
   std::cout << "Vector despues de ordenar" << std::endl;
   for (unsigned i = 0; i < contenedor.size(); ++i)
@@ -67,6 +70,19 @@ void Insercion(std::vector<Clave>& contenedor, size_t tamano)
     {
       std::swap(contenedor[j], contenedor[i]);
       i--;
+    }
+  }
+}
+
+template<class Clave>
+void Burbuja(std::vector<Clave>& contenedor, size_t tamano)
+{
+  for (size_t i = 0; i < tamano - 1; ++i)
+  {
+    for (size_t j = 0; j < tamano - 1; ++j)
+    {
+      if (contenedor[j] > contenedor[j + 1])
+        std::swap(contenedor[j], contenedor[j + 1]);
     }
   }
 }
