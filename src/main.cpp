@@ -111,7 +111,7 @@ void Crearheap(std::vector<Clave>& contenedor, size_t tamano)
     int p = x/2;
     while (p > 0)
     {
-      if (contenedor[p - 1] > contenedor[i - 1])
+      if (contenedor[p - 1] < contenedor[i - 1])
       {
         std::swap(contenedor[p - 1], contenedor[i - 1]);
       }
@@ -133,17 +133,16 @@ void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
     std::swap(contenedor[0], contenedor[--tamano]);
     while(i*2 <= tamano)
     {
-      if ((i*2 + 1) > tamano || contenedor[(i*2) - 1] < contenedor[(i*2 + 1) - 1])
+      if ((i*2 + 1) > tamano || contenedor[(i*2) - 1] > contenedor[(i*2 + 1) - 1])
         minimo_i = i*2;
       else
         minimo_i = i*2 + 1;
 
-      if (contenedor[minimo_i - 1] < contenedor[i - 1])
-      {
+      if (contenedor[minimo_i - 1] > contenedor[i - 1])
         std::swap(contenedor[minimo_i - 1], contenedor[i - 1]);
-      }
       else
         break;
+
       i = minimo_i;
     }
   }
