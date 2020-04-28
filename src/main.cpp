@@ -23,6 +23,9 @@ template<class Clave>
 void Extraerheap(std::vector<Clave>& , size_t);
 
 template<class Clave>
+void Quicksort(std::vector<Clave>&, int , int);
+
+template<class Clave>
 void mostrar(const std::vector<Clave>&);
 
 int main()
@@ -48,12 +51,16 @@ int main()
 int Demostracion()
 {
   std::cout << "Estoy en demostracion" << std::endl;
-  std::vector<DNI> contenedor(8);
+  std::vector<DNI> contenedor;
+  for (int i = 0; i < 8; i++)
+  {
+    contenedor.push_back(DNI());
+  }
   //std::vector<int> contenedor = {44, 55, 12 ,42 ,94, 18, 6 , 67};
   std::cout << "Vector antes de ordenar" << std::endl;
   mostrar(contenedor);
   std::cout << '\n';
-  Heapsort(contenedor, contenedor.size());
+  Quicksort(contenedor,  0 , contenedor.size() - 1);
 
   std::cout << '\n';
   std::cout << "Vector despues de ordenar" << std::endl;
@@ -142,7 +149,6 @@ void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
         std::swap(contenedor[minimo_i - 1], contenedor[i - 1]);
       else
         break;
-
       i = minimo_i;
     }
   }
@@ -156,4 +162,26 @@ void mostrar(const std::vector<Clave>& contenedor)
     std::cout << contenedor[i] << '\t';
   }
   std::cout << '\n';
+}
+
+template<class Clave>
+void Quicksort(std::vector<Clave>& contenedor, int ini, int fin)
+{
+  int i = ini;
+  int f = fin;
+  int pivote = contenedor[(i + f) /2];
+  while (i <= f)
+  {
+    while ((int)contenedor[i] < pivote) i++;
+    while ((int)contenedor[f] > pivote) f--;
+    if (i <= f)
+    {
+      std::swap(contenedor[i], contenedor[f]);
+      ++i; --f;
+    }
+  }
+  if (ini < f)
+    Quicksort(contenedor, ini, f);
+  if (i < fin)
+    Quicksort(contenedor, i, fin);
 }
