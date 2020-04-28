@@ -46,3 +46,6 @@ $(BIN).o: ../src/$(BIN).cpp $(HEADER)
 
 %.o: ../src/%.cpp ../include/%.hpp
 	g++ -c $< -o $@
+
+%.o: ../src/%.cpp
+	g++ -c $< -o $@

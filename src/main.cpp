@@ -3,33 +3,15 @@
 #include <vector>
 
 #include "../include/DNI.hpp"
+#include "../include/Algoritmos.hpp"
 
 int Demostracion();
 int Estadistica();
 
 template<class Clave>
-void Insercion(std::vector<Clave>&, size_t);
+void Llamar_algoritmo(std::vector<Clave>&, std::string);
 
-template<class Clave>
-void Burbuja(std::vector<Clave>&, size_t);
-
-template<class Clave>
-void Heapsort(std::vector<Clave>&, size_t);
-
-template<class Clave>
-void Crearheap(std::vector<Clave>&, size_t);
-
-template<class Clave>
-void Extraerheap(std::vector<Clave>& , size_t);
-
-template<class Clave>
-void Quicksort(std::vector<Clave>&, int , int);
-
-template<class Clave>
-void Shellsort(std::vector<Clave>&, size_t);
-
-template<class Clave>
-void mostrar(const std::vector<Clave>&);
+bool DNI::MODO = true;
 
 int main()
 {
@@ -53,17 +35,29 @@ int main()
 
 int Demostracion()
 {
-  std::cout << "Estoy en demostracion" << std::endl;
-  std::vector<DNI> contenedor;
-  for (int i = 0; i < 8; i++)
+  std::cout << "|| DEMOSTRACIÓN ||" << std::endl;
+  int tamano;
   {
-    contenedor.push_back(DNI());
-  }
-  //std::vector<int> contenedor = {44, 55, 12 ,42 ,94, 18, 6 , 67};
+    std::cout << "¿Tamaño del contenedor?" << '\n';
+    std::cin >> tamano;
+  } while (tamano < 0);
+
+  std::vector<DNI> contenedor(tamano);
+
+  std::string Algoritmo;
+  do
+  {
+    std::cout << "Elija el algoritmo (Inserción, Burbuja, Heapsort, Quicksort, Shellsort)"
+              << '\t';
+    std::cin >> Algoritmo;
+  } while (Algoritmo != "Inserción" && Algoritmo != "Burbuja" && Algoritmo != "Heapsort" &&
+           Algoritmo != "Quicksort" && Algoritmo != "Shellsort");
+
   std::cout << "Vector antes de ordenar" << std::endl;
   mostrar(contenedor);
   std::cout << '\n';
-  Shellsort(contenedor,contenedor.size());
+
+  Llamar_algoritmo(contenedor, Algoritmo);
 
   std::cout << '\n';
   std::cout << "Vector despues de ordenar" << std::endl;
@@ -74,145 +68,22 @@ int Demostracion()
 
 int Estadistica()
 {
-  std::cout << "Estoy en estadistica" << std::endl;
+  std::cout << "|| ESTADÍSTICA ||" << std::endl;
+  DNI::MODO = false;
   return 0;
 }
 
 template<class Clave>
-void Insercion(std::vector<Clave>& contenedor, size_t tamano)
+void Llamar_algoritmo(std::vector<Clave>& contenedor, std::string algoritmo)
 {
-  for (size_t i = 1; i < tamano; ++i)
-  {
-    int j = i;
-    while ( j > 0 && contenedor[--j] > contenedor[i])
-    {
-      std::swap(contenedor[j], contenedor[i]);
-      i--;
-    }
-  }
-}
-
-template<class Clave>
-void Burbuja(std::vector<Clave>& contenedor, size_t tamano)
-{
-  for (size_t i = 0; i < tamano - 1; ++i)
-  {
-    for (size_t j = 0; j < tamano - 1; ++j)
-    {
-      if (contenedor[j] > contenedor[j + 1])
-        std::swap(contenedor[j], contenedor[j + 1]);
-    }
-  }
-}
-
-template<class Clave>
-void Heapsort(std::vector<Clave>& contenedor, size_t tamano)
-{
-  Crearheap(contenedor, tamano);
-  Extraerheap(contenedor, tamano);
-}
-
-template<class Clave>
-void Crearheap(std::vector<Clave>& contenedor, size_t tamano)
-{
-  for (unsigned x = 2; x <= tamano; ++x)
-  {
-    int i = x;
-    int p = x/2;
-    while (p > 0)
-    {
-      if (contenedor[p - 1] < contenedor[i - 1])
-      {
-        std::swap(contenedor[p - 1], contenedor[i - 1]);
-      }
-      else
-        break;
-      i = p;
-      p /= 2;
-    }
-  }
-}
-
-template<class Clave>
-void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
-{
-  int minimo_i;
-  while (tamano > 0)
-  {
-    unsigned i = 1;
-    std::swap(contenedor[0], contenedor[--tamano]);
-    while(i*2 <= tamano)
-    {
-      if ((i*2 + 1) > tamano || contenedor[(i*2) - 1] > contenedor[(i*2 + 1) - 1])
-        minimo_i = i*2;
-      else
-        minimo_i = i*2 + 1;
-
-      if (contenedor[minimo_i - 1] > contenedor[i - 1])
-        std::swap(contenedor[minimo_i - 1], contenedor[i - 1]);
-      else
-        break;
-      i = minimo_i;
-    }
-  }
-}
-  template<class Clave>
-void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
-{
-    float alpha;
-    int delta;
-  do
-  {
-    std::cout << "¿Cual es el valor de alpha?" << std::endl;
-    std::cin >> alpha;
-  } while (alpha <= 0 || alpha >= 1);
-
-  delta = tamano * alpha;
-  while (delta > 1)
-  {
-    delta = delta * alpha;
-    for (unsigned i = delta; i < tamano; ++i)
-    {
-      unsigned x = contenedor[i];
-      int j = i;
-      while (j >= delta && x < contenedor[j - delta])
-      {
-        contenedor[j] = contenedor[j - delta];
-        j = j - delta;
-      }
-      contenedor[j] = x;
-    }
-  }
-}
-
-template<class Clave>
-void mostrar(const std::vector<Clave>& contenedor)
-{
-  for (unsigned i = 0; i < contenedor.size(); ++i)
-  {
-    std::cout << contenedor[i] << '\t';
-  }
-  std::cout << '\n';
-}
-
-template<class Clave>
-void Quicksort(std::vector<Clave>& contenedor, int ini, int fin)
-{
-  int i = ini;
-  int f = fin;
-  int pivote = contenedor[(i + f) /2];
-  while (i <= f)
-  {
-    while ((int)contenedor[i] < pivote) i++;
-    while ((int)contenedor[f] > pivote) f--;
-    if (i <= f)
-    {
-      std::swap(contenedor[i], contenedor[f]);
-      ++i; --f;
-    }
-  }
-  if (ini < f)
-    Quicksort(contenedor, ini, f);
-  if (i < fin)
-    Quicksort(contenedor, i, fin);
+  if (algoritmo == "Inserción")
+    Insercion(contenedor, contenedor.size());
+  else if (algoritmo == "Burbuja")
+    Burbuja(contenedor, contenedor.size());
+  else if (algoritmo == "Heapsort")
+    Heapsort(contenedor, contenedor.size());
+  else if (algoritmo == "Quicksort")
+    Quicksort(contenedor, 0, contenedor.size() - 1);
+  else if (algoritmo == "Shellsort")
+    Shellsort(contenedor, contenedor.size());
 }
