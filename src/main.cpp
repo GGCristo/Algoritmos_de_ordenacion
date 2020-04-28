@@ -26,6 +26,9 @@ template<class Clave>
 void Quicksort(std::vector<Clave>&, int , int);
 
 template<class Clave>
+void Shellsort(std::vector<Clave>&, size_t);
+
+template<class Clave>
 void mostrar(const std::vector<Clave>&);
 
 int main()
@@ -60,7 +63,7 @@ int Demostracion()
   std::cout << "Vector antes de ordenar" << std::endl;
   mostrar(contenedor);
   std::cout << '\n';
-  Quicksort(contenedor,  0 , contenedor.size() - 1);
+  Shellsort(contenedor,contenedor.size());
 
   std::cout << '\n';
   std::cout << "Vector despues de ordenar" << std::endl;
@@ -150,6 +153,34 @@ void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
       else
         break;
       i = minimo_i;
+    }
+  }
+}
+  template<class Clave>
+void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
+{
+    float alpha;
+    int delta;
+  do
+  {
+    std::cout << "¿Cual es el valor de alpha?" << std::endl;
+    std::cin >> alpha;
+  } while (alpha <= 0 || alpha >= 1);
+
+  delta = tamano * alpha;
+  while (delta > 1)
+  {
+    delta = delta * alpha;
+    for (unsigned i = delta; i < tamano; ++i)
+    {
+      unsigned x = contenedor[i];
+      int j = i;
+      while (j >= delta && x < contenedor[j - delta])
+      {
+        contenedor[j] = contenedor[j - delta];
+        j = j - delta;
+      }
+      contenedor[j] = x;
     }
   }
 }
