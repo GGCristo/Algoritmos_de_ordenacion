@@ -137,7 +137,7 @@ void mostrar(const std::vector<Clave>& contenedor)
 }
 
 template<class Clave>
-void miswap(Clave& uno, Clave& dos, std::vector<Clave> contenedor)
+void miswap(Clave& uno, Clave& dos, const std::vector<Clave>& contenedor)
 {
   if (DNI::MODO)
     mostrar(contenedor);

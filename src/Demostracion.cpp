@@ -5,7 +5,7 @@
 #include "../include/Algoritmos.hpp"
 
 template<class Clave>
-void Llamar_algoritmo(std::vector<Clave>&, std::string);
+void Llamar_algoritmo(std::vector<Clave>&, const std::string&);
 
 int Demostracion(const int& tamano)
 {
@@ -36,7 +36,7 @@ int Demostracion(const int& tamano)
 }
 
 template<class Clave>
-void Llamar_algoritmo(std::vector<Clave>& contenedor, std::string algoritmo)
+void Llamar_algoritmo(std::vector<Clave>& contenedor, const std::string& algoritmo)
 {
   if (algoritmo == "Inserción")
     Insercion(contenedor, contenedor.size());
