@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+
 DNI::DNI ()
 {
   Valor_ = rand() % 100;
