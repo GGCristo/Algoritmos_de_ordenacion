@@ -29,7 +29,7 @@ int main()
   std::string modo;
   do
   {
-    std::cout << "Elija modo (Demostración, Estadística)" << std::endl;
+    std::cout << "Elija modo (Demostración, Estadística)" << '\n';
     std::cin >> modo;
 
     if (modo == "Demostración")
@@ -37,7 +37,7 @@ int main()
     else if (modo == "Estadística")
       Estadistica(tamano);
     else
-      std::cout << "Elija una opción valida" << std::endl;
+      std::cout << "Elija una opción valida" << '\n';
   } while(modo != "Demostración" && modo != "Estadística");
 
   return 0;
@@ -45,7 +45,7 @@ int main()
 
 int Demostracion(const int& tamano)
 {
-  std::cout << "|| DEMOSTRACIÓN ||" << std::endl;
+  std::cout << "|| DEMOSTRACIÓN ||" << '\n';
 
   std::vector<DNI> contenedor(tamano);
 
@@ -58,14 +58,14 @@ int Demostracion(const int& tamano)
   } while (Algoritmo != "Inserción" && Algoritmo != "Burbuja" && Algoritmo != "Heapsort" &&
            Algoritmo != "Quicksort" && Algoritmo != "Shellsort");
 
-  std::cout << "Vector antes de ordenar" << std::endl;
+  std::cout << "Vector antes de ordenar" << '\n';
   mostrar(contenedor);
   std::cout << '\n';
 
   Llamar_algoritmo(contenedor, Algoritmo);
 
   std::cout << '\n';
-  std::cout << "Vector despues de ordenar" << std::endl;
+  std::cout << "Vector despues de ordenar" << '\n';
   mostrar(contenedor);
 
   return 0;
@@ -73,10 +73,10 @@ int Demostracion(const int& tamano)
 
 int Estadistica(const int& tamano)
 {
-  std::cout << "|| ESTADÍSTICA ||" << std::endl;
+  std::cout << "|| ESTADÍSTICA ||" << '\n';
   DNI::MODO = false;
 
-  std::cout << "Numero de prueba: " << std::endl;
+  std::cout << "Numero de pruebas: " << '\n';
   int nPrueba;
   std::cin >> nPrueba;
 
@@ -121,7 +121,7 @@ int Estadistica(const int& tamano)
   for (int i = 0; i < nPrueba; ++i)
   {
     std::vector<DNI> BP_Quicksort(tamano);
-    Quicksort(BP_Quicksort, 0, BP_Quicksort.size());
+    Quicksort(BP_Quicksort, 0, BP_Quicksort.size() - 1);
     if (DNI::CONTADOR < Q_minimo) Q_minimo = DNI::CONTADOR;
     if (DNI::CONTADOR > Q_maximo) Q_maximo = DNI::CONTADOR;
     Q_acumulado += DNI::CONTADOR;
@@ -138,13 +138,13 @@ int Estadistica(const int& tamano)
     DNI::CONTADOR = 0;
   }
 
-  std::cout << "Numero de comparaciones" << std::endl;
-  std::cout << "          Mínimo  Medio  Máximo" << std::endl;
-  std::cout << "Método 1: " << I_minimo << "  " << I_acumulado/nPrueba << "  " << I_maximo << '\n';
-  std::cout << "Método 2: " << B_minimo << "  " << B_acumulado/nPrueba << "  " << B_maximo << '\n';
-  std::cout << "Método 3: " << H_minimo << "  " << H_acumulado/nPrueba << "  " << H_maximo << '\n';
-  std::cout << "Método 4: " << Q_minimo << "  " << Q_acumulado/nPrueba << "  " << Q_maximo << '\n';
-  std::cout << "Método 5: " << S_minimo << "  " << S_acumulado/nPrueba << "  " << S_maximo << '\n';
+  std::cout << "Numero de comparaciones"         << '\n';
+  std::cout << "          Mínimo  Medio  Máximo" << '\n';
+  std::cout << "Insercion: " << I_minimo << "  " << I_acumulado/nPrueba << "  " << I_maximo << '\n';
+  std::cout << "Burbuja: "   << B_minimo << "  " << B_acumulado/nPrueba << "  " << B_maximo << '\n';
+  std::cout << "Heapsort: "  << H_minimo << "  " << H_acumulado/nPrueba << "  " << H_maximo << '\n';
+  std::cout << "Quicksort: " << Q_minimo << "  " << Q_acumulado/nPrueba << "  " << Q_maximo << '\n';
+  std::cout << "Shellsort: " << S_minimo << "  " << S_acumulado/nPrueba << "  " << S_maximo << '\n';
   return 0;
 }
 

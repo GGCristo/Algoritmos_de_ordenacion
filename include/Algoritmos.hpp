@@ -108,9 +108,8 @@ void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
   }
 
   delta = tamano * alpha;
-  while (delta > 1)
+  while (delta >= 1)
   {
-    delta *= alpha;
     for (unsigned i = delta; i < tamano; ++i)
     {
       Clave x = contenedor[i];
@@ -121,7 +120,9 @@ void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
         j -= delta;
       }
       contenedor[j] = x;
+      if (DNI::MODO) mostrar(contenedor);
     }
+    delta *= alpha;
   }
 }
 

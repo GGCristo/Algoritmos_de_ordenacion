@@ -3,4 +3,5 @@
 .vscode/
 catch.hpp
 bin/
+.directory
 .DS_Store
