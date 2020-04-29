@@ -78,36 +78,6 @@ void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
 }
 
 template<class Clave>
-void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
-{
-  float alpha;
-  int delta;
-  do
-  {
-    std::cout << "¿Cual es el valor de alpha?" << std::endl;
-    std::cin >> alpha;
-  } while (alpha <= 0 || alpha >= 1);
-
-  delta = tamano * alpha;
-  while (delta > 1)
-  {
-    delta *= alpha;
-    for (unsigned i = delta; i < tamano; ++i)
-    {
-      unsigned x = contenedor[i];
-      int j = i;
-      while (j >= delta && x < contenedor[j - delta])
-      {
-        contenedor[j] = contenedor[j - delta];
-        j -= delta;
-      }
-      contenedor[j] = x;
-    }
-  }
-}
-
-
-template<class Clave>
 void Quicksort(std::vector<Clave>& contenedor, int ini, int fin)
 {
   int i = ini;
@@ -124,6 +94,35 @@ void Quicksort(std::vector<Clave>& contenedor, int ini, int fin)
     Quicksort(contenedor, ini, f);
   if (i < fin)
     Quicksort(contenedor, i, fin);
+}
+
+template<class Clave>
+void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
+{
+  static float alpha = 1;
+  int delta;
+  while (alpha <= 0 || alpha >= 1)
+  {
+    std::cout << "¿Cual es el valor de alpha?" << std::endl;
+    std::cin >> alpha;
+  }
+
+  delta = tamano * alpha;
+  while (delta > 1)
+  {
+    delta *= alpha;
+    for (unsigned i = delta; i < tamano; ++i)
+    {
+      Clave x = contenedor[i];
+      int j = i;
+      while (j >= delta && x < contenedor[j - delta])
+      {
+        contenedor[j] = contenedor[j - delta];
+        j -= delta;
+      }
+      contenedor[j] = x;
+    }
+  }
 }
 
 template<class Clave>

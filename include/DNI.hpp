@@ -6,7 +6,7 @@ class DNI{
     unsigned long Valor_;
   public:
     static bool MODO;
-    static unsigned acumulado;
+    static unsigned CONTADOR;
     DNI();
     void operator = (const int&);
     bool operator < (const DNI&);
