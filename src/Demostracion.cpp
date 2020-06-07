@@ -11,7 +11,7 @@ int Demostracion(const int& tamano)
 {
   std::cout << "|| DEMOSTRACIÓN ||" << '\n';
 
-  std::vector<DNI> contenedor(tamano);
+  std::vector<int> contenedor = {9,13,17,14,10,18,12,15,8,16,11};
 
   std::string Algoritmo;
   do

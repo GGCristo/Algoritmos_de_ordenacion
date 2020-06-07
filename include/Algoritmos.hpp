@@ -4,34 +4,21 @@
 #include "DNI.hpp"
 
 template<class Clave>
-void Insercion(std::vector<Clave>& contenedor, size_t tamano)
+void mostrar(const std::vector<Clave>& contenedor)
 {
-  for (size_t i = 1; i < tamano; ++i)
+  for (unsigned i = 0; i < contenedor.size(); ++i)
   {
-    int j = i;
-    while ( j > 0 && contenedor[--j] > contenedor[i])
-      miswap(contenedor[j], contenedor[i--], contenedor);
+    std::cout << contenedor[i] << '\t';
   }
+  std::cout << '\n';
 }
 
 template<class Clave>
-void Burbuja(std::vector<Clave>& contenedor, size_t tamano)
+void miswap(Clave& uno, Clave& dos, const std::vector<Clave>& contenedor)
 {
-  for (size_t i = 0; i < tamano - 1; ++i)
-  {
-    for (size_t j = 0; j < tamano - 1; ++j)
-    {
-      if (contenedor[j] > contenedor[j + 1])
-        miswap(contenedor[j], contenedor[j + 1], contenedor);
-    }
-  }
-}
-
-template<class Clave>
-void Heapsort(std::vector<Clave>& contenedor, size_t tamano)
-{
-  Crearheap(contenedor, tamano);
-  Extraerheap(contenedor, tamano);
+  std::swap(uno, dos);
+  if (DNI::MODO)
+    mostrar(contenedor);
 }
 
 template<class Clave>
@@ -75,6 +62,39 @@ void Extraerheap(std::vector<Clave>& contenedor, size_t tamano)
       i = minimo_i;
     }
   }
+}
+
+template<class Clave>
+void Insercion(std::vector<Clave>& contenedor, size_t tamano)
+{
+  for (size_t i = 1; i < tamano; ++i)
+  {
+    int left = i, right = i;
+    while (left > 0 && contenedor[--left] > contenedor[right])
+      miswap(contenedor[left], contenedor[right--], contenedor);
+  }
+}
+
+template<class Clave>
+void Burbuja(std::vector<Clave>& contenedor, size_t tamano)
+{
+  for (size_t i = 0; i < tamano - 1; ++i)
+  {
+    for (size_t j = 0; j < tamano - 1; ++j)
+    {
+      if (contenedor[j] > contenedor[j + 1])
+        miswap(contenedor[j], contenedor[j + 1], contenedor);
+    }
+  }
+}
+
+template<class Clave>
+void Heapsort(std::vector<Clave>& contenedor, size_t tamano)
+{
+  Crearheap(contenedor, tamano);
+  std::cout << "Despues de crear el monton" << '\n';
+  mostrar(contenedor);
+  Extraerheap(contenedor, tamano);
 }
 
 template<class Clave>
@@ -124,22 +144,4 @@ void Shellsort(std::vector<Clave>& contenedor, size_t tamano)
     }
     delta *= alpha;
   }
-}
-
-template<class Clave>
-void mostrar(const std::vector<Clave>& contenedor)
-{
-  for (unsigned i = 0; i < contenedor.size(); ++i)
-  {
-    std::cout << contenedor[i] << '\t';
-  }
-  std::cout << '\n';
-}
-
-template<class Clave>
-void miswap(Clave& uno, Clave& dos, const std::vector<Clave>& contenedor)
-{
-  if (DNI::MODO)
-    mostrar(contenedor);
-  std::swap(uno, dos);
 }
